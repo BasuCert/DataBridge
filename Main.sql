@@ -8,7 +8,8 @@ DECLARE @HeadersTable TABLE(ColumnId int,ColumnName nvarchar(300));
 	where object_id = object_id(@TableName)
 
 DECLARE @Result varchar(max) = ''
-DECLARE @TheSelect nvarchar(max) = 'SELECT '+'
+DECLARE @TheSelect nvarchar(max) = 'DECLARE @TheOutput varchar(MAX) = ''	'';
+SELECT @TheOutput = @TheOutput +'+'
 	'+ 'REPLACE(' + '''db.'+ @TableName +'.insert( '' + '+'
 	';
 SELECT @TheSelect  = @TheSelect +
@@ -16,9 +17,9 @@ SELECT @TheSelect  = @TheSelect +
 	'
 	from @HeadersTable
 
-SET @TheSelect =@TheSelect +  '
-	' + ''');'', '',);'', '');'')' + '
-AS [Result] FROM [' + @TableName + ']';
+SET @TheSelect =@TheSelect +  '' + ''');'', '',);'', '');' + '
+	'')
+FROM [' + @TableName + ']
+PRINT @TheOutput';
 set @Result = @Result  + @TheSelect
-print @Result
---EXEC (@Result)
+EXEC (@Result)
