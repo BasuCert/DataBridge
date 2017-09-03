@@ -37,4 +37,4 @@ set @Result = @Result  + @TheSelect
 
 print @Result
 
--- EXECUTE sp_executesql @Result
+EXEC (@Result)
