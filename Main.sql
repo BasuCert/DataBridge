@@ -23,7 +23,16 @@ from
     where object_id = object_id('Document')
 ) t
 
-set @Result = @Result  + ');'
+set @Result = @Result  + ''''');
+'
+
+
+
+declare @TheSelect nvarchar(max)
+
+set  @TheSelect = 'SELECT * FROM ' + @TableName + ' CROSS JOIN @' + @TableName
+
+set @Result = @Result  + @TheSelect
 
 
 print @Result
