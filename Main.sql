@@ -1,8 +1,8 @@
-declare @TableName sysname = 'Document'
-declare @Result varchar(max) = 'CREATE @'+@TableName+' TABLE(' +'
+DECLARE @TableName sysname = 'Document'
+DECLARE @Result varchar(max) = 'DECLARE @'+@TableName+' TABLE(' +'
 '
 
-select @Result = @Result + '	' + ColumnName + ' ' + 'nvarchar(300)' + ',
+select @Result = @Result + '	[' + ColumnName + '] ' + 'nvarchar(300)' + ',
 '
 from
 (
@@ -13,7 +13,7 @@ from
 
 set @Result = @Result  + '	ExceptionHandler char(1)
 '  +');
-INSERT INTO @' + @TableName + '(';
+INSERT INTO @' + @TableName + ' VALUES (';
 
 select @Result = @Result + '''' + ColumnName + ' ' + ColumnType + ''','
 from
@@ -36,3 +36,5 @@ set @Result = @Result  + @TheSelect
 
 
 print @Result
+
+-- EXECUTE sp_executesql @Result
